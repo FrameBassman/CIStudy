@@ -11,6 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      matrix:
+        projectPath:
+          - CIStudy
+        testMode:
+          - playmode
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,11 +36,5 @@ jobs:
           git add .
           git reset --hard
 
-      - name: Restore Library cache
-        uses: actions/cache@v2
-        with:
-          path: Library
-          key: Library-test-project-${{ matrix.targetPlatform }}
-          restore-keys: |
-            Library-test-project-
-            Library-
+      - name: Unity - Test runner
+        uses: game-ci/unity-test-runner@v2.0.0-alpha-7
